@@ -2986,12 +2986,25 @@ def misc():
 #misc()
 
 
+from IPython.display import clear_output
+print('test')
+def print_test():
+    clear_output()
+    print('test2')
+
+print_test()
+print_test()
 
 
+def first_two_string(str):
+    return str[:2]
 
+print(first_two_string('t'))
 
-
-
+def without_end(str):
+  return str[1:-1]
+without_end('')
+#???????????????
 
 
 
