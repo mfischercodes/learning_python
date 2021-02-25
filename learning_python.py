@@ -3030,6 +3030,7 @@ def sum3(nums):
     sum += num
   return sum
 '''
+'''
 my_nums = [1,5,4,6,3,245,]
 
 def sum3(nums):
@@ -3041,9 +3042,51 @@ print(sum3(my_nums))
 my_list = [1,2,3,4]
 my_list.pop(0)
 print(my_list)
+'''
+'''
+def makes_twenty(a,b):
+    return (a == 20 or b == 20 or a+b == 20)
+
+print(makes_twenty(20,10))
+sample_list = [1,1,1,1,2,2,3,3,3,3,4,5]
+
+def unique_list(mylist):
+    return list(set(mylist))
+
+print(unique_list(sample_list))
+'''
+
+import requests
+from bs4 import BeautifulSoup
+import selenium
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import smtplib
+import time
 
 
+url = 'http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=16044'
+title_split = ''
 
+iteration = 0
+while iteration < 1000:
 
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    driver=webdriver.Chrome(chrome_options=chrome_options)
+    get=driver.get(url)
+    html=driver.page_source
+    soup=BeautifulSoup(html,'html.parser')
 
+    title_split = int(title_split)/2
+    title_split = str(title_split)
+
+    url = 'http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing=' + title_split
+
+    title = soup.find("body").text
+    title_split = title.split()[-1]
+
+    print(title)
+    print(title_split)
+    iteration += 1
 
