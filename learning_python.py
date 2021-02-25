@@ -2985,7 +2985,7 @@ def misc():
     '''
 #misc()
 
-
+'''
 from IPython.display import clear_output
 print('test')
 def print_test():
@@ -3005,20 +3005,42 @@ def without_end(str):
   return str[1:-1]
 without_end('')
 #???????????????
+'''
+'''
+def first_last6(nums):
+    print (6 == nums[0])
+    print(nums[0])
+    for num in nums:
+        print(num)
+
+first_last6([1, 2, 6])
+#6 in nums[0] doesnt work since in is calling a for loop for each in nums
+#instead 6 == nums[0]
+
+def same_first_last(nums):
+    #return nums.length
+  return len(nums) >= 1 and nums[0] == nums[-1]
+
+same_first_last([1, 2, 3])
+#??? coding bat say what
+
+def sum3(nums):
+  sum = 0
+  for num in nums:
+    sum += num
+  return sum
+'''
+my_nums = [1,5,4,6,3,245,]
+
+def sum3(nums):
+    return sum(nums)
+
+print(sum3(my_nums))
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+my_list = [1,2,3,4]
+my_list.pop(0)
+print(my_list)
 
 
 
