@@ -3055,7 +3055,7 @@ def unique_list(mylist):
 
 print(unique_list(sample_list))
 '''
-
+'''
 import requests
 from bs4 import BeautifulSoup
 import selenium
@@ -3089,4 +3089,119 @@ while iteration < 1000:
     print(title)
     print(title_split)
     iteration += 1
+'''
+#OOP Stuff
+'''
+class NameOfClass():
+    def __init__(self, param1,param2):
+        self.param1 = param1
+        self.param2 = param2
+    
+    def some_method(self):
+        print(self.param1)
+
+'''
+
+
+class Dog():
+    """ Test Doc String """
+
+    # CLASS OBJECT ATTRIBUTE WHICH AR THE SAME FOR ANY INSTANCE OF A CLASS
+    # SELF IS FOR THE INSTANCE OF THE CLASS SO BREED AND COLOR DIFFER FROM INSTANCES
+
+    species = 'mammal'
+    
+    def __init__(self, breed, color, name):
+        #Take in argument and assign it to self.attribute name so new instances of classes get this attribute
+        #Attributes are like variables
+        self.breed = breed
+        self.color = color
+        self.name = name
+        
+
+    # OPERATIONS/Actions --> Methods
+    def bark(self, number):
+        print(("WOOF My name is " + self.name) * number)
+
+my_dog = Dog('Husky', 'black', 'Moses')
+print(my_dog.breed)
+print(my_dog.color)
+print(my_dog.species)
+
+my_dog.bark(2)
+
+
+class Circle():
+    #CLASS OBJECT ATTRIBUTE
+    pi = 3.14
+
+    def __init__(self, radius = 1):
+        self.radius = radius
+        self.area = radius*radius*self.pi
+    
+    def get_circumference(self):
+        print (self.radius * self.pi * 2)
+        return self.radius * self.pi * 2
+
+my_circle = Circle()
+my_circle.get_circumference()
+
+my_2_circle = Circle(10)
+my_2_circle.get_circumference()
+print(my_2_circle.area)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
