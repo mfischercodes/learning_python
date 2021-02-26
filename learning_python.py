@@ -2985,6 +2985,7 @@ def misc():
     '''
 #misc()
 
+#region misc2
 '''
 from IPython.display import clear_output
 print('test')
@@ -3101,7 +3102,7 @@ class NameOfClass():
         print(self.param1)
 
 '''
-
+#endregion
 
 class Dog():
     """ Test Doc String """
