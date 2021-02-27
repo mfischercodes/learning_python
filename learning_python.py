@@ -3103,7 +3103,7 @@ class NameOfClass():
 
 '''
 #endregion
-
+'''
 class Dog():
     """ Test Doc String """
 
@@ -3123,15 +3123,15 @@ class Dog():
     # OPERATIONS/Actions --> Methods
     def bark(self, number):
         print(("WOOF My name is " + self.name) * number)
+'''
+#my_dog = Dog('Husky', 'black', 'Moses')
+#print(my_dog.breed)
+#print(my_dog.color)
+#print(my_dog.species)
 
-my_dog = Dog('Husky', 'black', 'Moses')
-print(my_dog.breed)
-print(my_dog.color)
-print(my_dog.species)
+#my_dog.bark(2)
 
-my_dog.bark(2)
-
-
+'''
 class Circle():
     #CLASS OBJECT ATTRIBUTE
     pi = 3.14
@@ -3143,39 +3143,149 @@ class Circle():
     def get_circumference(self):
         print (self.radius * self.pi * 2)
         return self.radius * self.pi * 2
-
-my_circle = Circle()
-my_circle.get_circumference()
-
-my_2_circle = Circle(10)
-my_2_circle.get_circumference()
-print(my_2_circle.area)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+'''
+#my_circle = Circle()
+#my_circle.get_circumference()
+#
+#my_2_circle = Circle(10)
+#my_2_circle.get_circumference()
+#print(my_2_circle.area)
+#
+#print(sum(5,10))
+#if sum(5,10) in range(1,10):
+#    print("In it")
+'''
+def make_bricks(small, big, goal):
+  #FAIL 1: NOT ENOUGH BRICKS
+  if (goal > big*5 + small) : return False
+  #FAIL 2: NOT ENOUGH SMALL BRICKS
+  if (goal % 5 > small): return "OK"
+  #FAIL 3: NOT ENOUGH BIG BRICKS
+  return True
+print(make_bricks(6,3,19)  )
 
 
+'''
+'''
+#BASE CLASS
+class Calls():
+    def __init__(self):
+        pass
+
+    def sit(self):
+        print("I am sitting")
 
 
+class Animal():
+    def __init__(self):
+        print("Animal Created")
+
+    def who_am_i(self):
+        print("I am an animal")
+
+    def eat(self):
+        print("I am eating")
+
+#DERIVED CLASS CALL ANIMAL IN PARENTHESES
+class Dog(Animal, Calls):
+    def __init__(self):
+        Animal.__init__(self)
+        print('Dog Created')
+
+#my_animal = Animal()
+#my_animal.eat()
+my_dog = Dog()
+my_dog.eat()
+my_dog.sit()
+'''
+
+'''
+
+class Cat():
+
+    def __init__(self,name):
+        self.name = name
+
+    def speak(self):
+        return self.name + " says meow!"
+'''
+'''
+niko = Dog('niko')
+felix = Cat('felix')
+
+print(niko.speak())
+print(felix.speak())
+'''
+'''
+for pet in [niko,felix]:
+    print(type(pet))
+    print(pet.speak())
 
 
+def pet_speak(pet):
+    print(pet.speak())
+pet_speak(niko)
+'''
+'''
+class Animal():
+
+    def __init__(self,name):
+        self.name = name
+    
+    def speak(self):
+        raise NotImplementedError("Subclass must implement this abstact method")
+
+class Dog(Animal):
+
+    def __init__(self,name):
+        self.name = name
+
+    def speak(self):
+        print("woof")
+
+     
+
+#myanimal = Animal('Fred')
+#myanimal.speak()
+dug = Dog('dug')
+dug.speak()
+'''
+'''
+class Book():
+
+    def __init__(self,title,author,pages):
+        self.title = title
+        self.author = author
+        self.pages = pages
+    
+    def __str__(self):
+        return (f"{self.title} by {self.author}")
+
+    def __len__(self):
+        return (self.pages)
+
+    def __del__(self):
+        print("Book is deleted!")
+
+b = Book('Python rocks', 'Jose', 200)
+print(b)
+print(len(b))
+del b
+'''
 
 
+def round_sum(a, b, c):
+  return round10(a) + round10(b) + round10(c)
 
+def round10(num):
+  if num % 10 < 5:
+    num -= num % 10
+  else:
+    num = num + (10 - num%10)
+  print(num)
+  return num
 
-
+print(round_sum(16, 17, 18))
 
 
 
