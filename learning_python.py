@@ -3439,13 +3439,17 @@ def q17():
 	z = x + y
 	print(z)
 #1,2,3, half 4, half 5, 6, 8 half, 10 half, 11 half, 13, 15, 16 half
-#7? #a is b false?
+#7 a is b. is refers to the memory location
 #9 how is fuin q being ran?
 #8 half ish 1 line off
-#11 doesnt print as a list but as a long string?
+#11 *before a list mean unpack operator. Which unpacks the list and feeds it in one at a time..?
 #12 on the 17th decimal place the values 0.1 and 0.100000000000000001 are equal
 #14 all referencing the same memory location? So one change changes all of them??
+#14 lists are mutable so y = x and x is a list then y is pointing to x's list
+#14 if you want to make a copy of a list just do y = x[:] the colon will copy all elements
 #Because of immutable vs mutable?, list is mutable
+#16 is bytes b'1001'
+#17 is binary 0b1001
 #16 includes b and string but adds the numbers as string (binary???)
 #Counting binary get it now
 
@@ -3504,6 +3508,7 @@ def count_binary():
     #print(0b111)
     #ANSWERS REVIEW....
 
+print('a','b','c')
 
 
 
