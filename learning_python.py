@@ -3508,8 +3508,13 @@ def count_binary():
     #print(0b111)
     #ANSWERS REVIEW....
 
-print('a','b','c')
+#print('a','b','c')
 
+import re
+def count_code(str):
+  code = re.findall(r'co.e',str)
+  return len(code)
 
-
+print(count_code('aaacodebbb'))
+print(count_code('codexxcode') )
 
