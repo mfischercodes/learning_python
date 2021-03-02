@@ -3103,6 +3103,8 @@ class NameOfClass():
 
 '''
 #endregion
+
+#region Classes
 '''
 class Dog():
     """ Test Doc String """
@@ -3287,8 +3289,9 @@ def round10(num):
 
 print(round_sum(16, 17, 18))
 '''
+#endregion
 
-
+#region Tim Quiz
 def q1():
 	print("hello" * 5)
 
@@ -3518,3 +3521,47 @@ def count_code(str):
 print(count_code('aaacodebbb'))
 print(count_code('codexxcode') )
 
+#endregion
+
+#region Modules and Packages
+
+#region test
+#def create_phone_number(n):
+    #m = ''.join(map(str, n))
+    #return f"({m[:3]}) {m[3:6]}-{m[6:]}"
+#endregion
+
+def create_phone_number(n):
+    str_phone = ''.join(map(str,n))
+    return f"({str_phone[:3]}) {str_phone[3:6]}-{str_phone[6:10]}"
+print(create_phone_number([0,1,2,3,4,5,6,7,8,9]))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#endregion
