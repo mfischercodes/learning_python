@@ -3537,11 +3537,63 @@ def create_phone_number(n):
 print(create_phone_number([0,1,2,3,4,5,6,7,8,9]))
 
 
+#endregion
+
+#region error handling
+
+def add(n1,n2):
+    print(n1/n2)
+'''
+while True:
+    try:
+        #try to run this
+        add (20,int(input()))
+    except TypeError:
+        print("You typed in a string!")
+    except:
+        #runs if error
+        print('you did 0')
+    else:
+        #runs if no error
+        print("Add went well")
+        break
+    finally:
+        #runs at the end no matter what
+        print("Success")
+
+'''
+#number = int(input("Please type in a number between 1 and 9"))
+'''
+def ask_number():
+    while True:
+        try:
+            number = int(input("Please type in a number "))
+        except ValueError:
+            print('THATS NOT A NUMBER')
+        else:
+            print("NO ERRORS I WILL BREAK NOW")
+            break
+        finally:
+            print('I ALWAYS RUN')
+    return number
 
 
 
+ask_number()
+'''
+
+def ask2():
+    while True:
+        try:
+            number = int(input("Please input a number: "))
+        except ValueError:
+            print("You did not type in an integer")
+            continue
+        else:
+            break
 
 
+ask2()
 
 
 
