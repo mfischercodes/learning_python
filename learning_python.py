@@ -3595,20 +3595,23 @@ def ask2():
 
 ask2()
 '''
-
+'''
 
 def disemvowel(s):
     trantab = s.maketrans('', "aeiouAEIOU")
     return s.translate(trantab)
 
 disemvowel('This is a test string')
+'''
 
 
 
 
+def to_jaden_case(string):
+    string = string.lower()
+    return string.title()
 
-
-
+print(to_jaden_case("How can mirrors be real if our eyes aren't real"))
 
 
 
