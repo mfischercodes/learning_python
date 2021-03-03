@@ -3580,7 +3580,7 @@ def ask_number():
 
 
 ask_number()
-'''
+
 
 def ask2():
     while True:
@@ -3594,8 +3594,14 @@ def ask2():
 
 
 ask2()
+'''
 
 
+def disemvowel(s):
+    trantab = s.maketrans('', "aeiouAEIOU")
+    return s.translate(trantab)
+
+disemvowel('This is a test string')
 
 
 
