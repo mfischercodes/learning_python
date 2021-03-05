@@ -3606,18 +3606,45 @@ disemvowel('This is a test string')
 
 
 
-
+'''
 def to_jaden_case(string):
     string = string.lower()
     return string.title()
 
 print(to_jaden_case("How can mirrors be real if our eyes aren't real"))
 
+'''
+
+'''
+from collections import Counter
+def find_uniq(arr):
+    c = Counter(arr)
+    print(c.most_common())
+    print(c.most_common()[-1][0])
+    # your code here
+    
+    return c   # n: unique integer in the array
+
+print(find_uniq([ 1, 1, 1, 2, 1, 1 ]))
+
+def find_uniq2(arr):
+    a, b = set(arr)
+    print()
+    print(set(arr))
+    
+    print(a)
+    print(b)
+    return a if arr.count(a) == 1 else b
+
+print(find_uniq2([ 2, 2, 2, 4, 2, 2 ]))
+
+'''
 
 
-
-
-
+def solution(number):
+    return sum([i for i in range(number) if i % 3 == 0 or i % 5 == 0])
+        
+print(solution(25))
 
 
 
