@@ -3512,7 +3512,7 @@ def count_binary():
     #ANSWERS REVIEW....
 
 #print('a','b','c')
-
+'''
 import re
 def count_code(str):
   code = re.findall(r'co.e',str)
@@ -3536,13 +3536,15 @@ def create_phone_number(n):
     return f"({str_phone[:3]}) {str_phone[3:6]}-{str_phone[6:10]}"
 print(create_phone_number([0,1,2,3,4,5,6,7,8,9]))
 
-
+'''
 #endregion
 
 #region error handling
-
+'''
 def add(n1,n2):
     print(n1/n2)
+
+'''
 '''
 while True:
     try:
@@ -3639,17 +3641,88 @@ def find_uniq2(arr):
 print(find_uniq2([ 2, 2, 2, 4, 2, 2 ]))
 
 '''
-
+'''
 
 def solution(number):
     return sum([i for i in range(number) if i % 3 == 0 or i % 5 == 0])
         
 print(solution(25))
 
+'''
+import random
+suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
+ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
+values = {'Two': 2, 'Three': 3, 'Four': 4, 'Five': 5, 'Six': 6, 'Seven': 7,
+'Eight': 8, 'Nine': 9, 'Ten': 10, 'Jack': 11, 'Queen': 12, 'King': 13, 'Ace': 14}
+
+
+class Card:
+    def __init__(self,rank, suit):
+        self.rank = rank
+        self.suit = suit
+        self.value = values[rank]
+
+    def __str__(self):
+        return self.rank + " of " + self.suit
+
+class Deck:
+    def __init__(self):
+        self.all_cards = []
+
+        for suit in suits:
+            for rank in ranks:
+                created_card = Card(rank,suit)
+
+                self.all_cards.append(created_card)
+        
+    def shuffle(self):
+        random.shuffle(self.all_cards)
+
+    def deal_one(self):
+        return self.all_cards.pop()
+ 
+class Player:
+    def __init__(self,name):
+        self.name = name
+        self.all_cards = []
+
+    def remove_one(self):
+        return self.all_cards.pop(0) #remove from beginning on the list
+
+    def add_cards(self,new_cards):
+        if new_cards == type([]):
+            return self.all_cards.extend(new_cards)
+        else:
+            return self.all_cards.append(new_cards)
+
+    def __str__(self):
+        return f'Player {self.name} has {len(self.all_cards)} cards.'
+
+
+
+new_deck = Deck()
+new_deck.shuffle()
+mycard = new_deck.deal_one()
+print(mycard)
+#for card in new_deck.all_cards:
+    #print(card)
+
+
+Jose = Player("Jose")
+
+
+Jose.add_cards(mycard)
+print(Jose)
 
 
 
 
 
 
-#endregion
+
+
+
+
+
+
+
