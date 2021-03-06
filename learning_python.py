@@ -3649,6 +3649,10 @@ def solution(number):
 print(solution(25))
 
 '''
+'''
+
+#region Milestone2
+
 import random
 suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
 ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
@@ -3714,7 +3718,12 @@ Jose = Player("Jose")
 Jose.add_cards(mycard)
 print(Jose)
 
+#endregion
 
+'''
+'''
+
+#region other
 import string
 def rot13(message):
     shifted_lower = string.ascii_lowercase[13:] + string.ascii_lowercase[:13]
@@ -3752,6 +3761,92 @@ def find_outlier(nums):
             if i % 2 == 0:
                 return i
             
+
+#endregion
+'''
+'''
+def tickets(people):
+    #var to store bills given by each person
+    clerk_bills = []
+    
+    #ticket price of 25
+    ticket_price = 25
+    
+    #for loop iterating through each person
+    for bill in people:
+        if bill == ticket_price:
+            clerk_bills.append(bill)
+            
+        if bill > ticket_price:
+            change = bill - ticket_price
+
+            if change == 25:
+                try:
+                    bill_25 = clerk_bills.index(25)
+                    clerk_bills.pop(bill_25)
+                except ValueError:
+                    return 'NO'
+
+            if change == 75:
+                paid = False
+                try:
+                    bill_50 = clerk_bills.index(50)
+                    clerk_bills.pop(bill_50)
+                    paid = True
+                except:
+                    pass
+                if not paid:
+                    try:
+                        bill_25 = clerk_bills.index(25)
+                        clerk_bills.pop(bill_25)
+                    except ValueError:
+                        return 'NO'
+
+        return 'YES'
+
+    #return x number of bills if > 25
+    #if 50 bill give 50 first if not then do 25
+    
+    
+    #if no change then return NO
+    
+    #if for loop passed for all people
+    #then return YES
+    
+    return f"{people}:{clerk_bills}"
+
+print(tickets([25,25,50]))
+
+'''
+
+
+from collections import Counter
+def find_it(seq):
+    c = Counter(seq)
+    for a,b in c.items():
+        if b % 2 == 1:
+            return a
+        print(f"{a}:{b}")
+    #print(c)
+#print(find_it([20,1,-1,2,-2,3,3,5,5,1,2,4,20,4,-1,-2,5]))
+
+
+def find_it2(seq):
+    for i in seq:
+        print(f"{i}: {seq.count(i)}")
+        if seq.count(i)%2!=0:
+            return i
+
+print(find_it2([20,1,-1,2,-2,3,3,5,5,1,2,4,20,4,-1,-2,5]))
+
+
+
+
+
+
+
+
+
 
 
 
