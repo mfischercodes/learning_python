@@ -3715,10 +3715,43 @@ Jose.add_cards(mycard)
 print(Jose)
 
 
+import string
+def rot13(message):
+    shifted_lower = string.ascii_lowercase[13:] + string.ascii_lowercase[:13]
+    shifted_upper = string.ascii_uppercase[13:] + string.ascii_uppercase[:13]
+    
+    result = ''
+    
+    for c in message:
+        if c.isupper():
+            result += c.translate(c.maketrans(string.ascii_uppercase,shifted_upper))
+        elif c.islower():
+            result += c.translate(c.maketrans(string.ascii_lowercase,shifted_lower))
+        else:
+            result += c
+    
+    return result
 
+my_list = [True,False,True]
+print(my_list)
 
+def even_or_odd(nums):
+    even = nums[0]%2 == 0 and (nums[1]%2 == 0 or nums[2]%2 == 0) or nums[0]%2 == 1 and (nums[1]%2 == 0 and nums[2]%2 == 0)
+    print(even)
 
+even_or_odd([1,3,6])
 
+def find_outlier(nums):
+    even = nums[0]%2 == 0 and (nums[1]%2 == 0 or nums[2]%2 == 0) or nums[0]%2 == 1 and (nums[1]%2 == 0 and nums[2]%2 == 0)
+        
+    for i in nums:
+        if even:
+            if i % 2 == 1:
+                return i
+        else:
+            if i % 2 == 0:
+                return i
+            
 
 
 
