@@ -3843,9 +3843,12 @@ print(find_it2([20,1,-1,2,-2,3,3,5,5,1,2,4,20,4,-1,-2,5]))
 
 
 
+#my_string = 20
+#print(len(my_string))
 
-
-
+my_string2 = 'testing this string out'
+print ([my_string2[c] for c in range(len(my_string2)) if c%2==0])
+print ([c for i, c in enumerate(my_string2) if i%2==0])    
 
 
 
