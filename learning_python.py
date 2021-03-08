@@ -3850,7 +3850,10 @@ my_string2 = 'testing this string out'
 print ([my_string2[c] for c in range(len(my_string2)) if c%2==0])
 print ([c for i, c in enumerate(my_string2) if i%2==0])    
 
-
+from operator import mul
+from functools import reduce
+my_num = 1243
+print(reduce(mul,[int(i) for i in str(my_num)]))
 
 
 
