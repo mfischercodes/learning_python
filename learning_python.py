@@ -3818,7 +3818,7 @@ def tickets(people):
 print(tickets([25,25,50]))
 
 '''
-
+'''
 
 from collections import Counter
 def find_it(seq):
@@ -3854,6 +3854,127 @@ from operator import mul
 from functools import reduce
 my_num = 1243
 print(reduce(mul,[int(i) for i in str(my_num)]))
+
+def myfunc(n):
+    if n == []:
+        return 'yay'
+
+print(myfunc([]))
+
+'''
+'''
+def likes(names):
+    people = ''
+    sentance = ' like this'
+    
+    if names == []:
+        people = 'no one'
+        sentance = ' likes this'
+        
+    for i,name in enumerate(names):
+        if len(names) == 1:
+            people = name
+            sentance = ' likes this'
+        elif len(names) == 2:
+            if i == 0:
+                people = name + ' and '
+            else:
+                people = people + name
+        elif len(names) == 3:
+            if i == 0:
+                people = name + ', '
+            elif i == 1:
+                people = people + name + ' and '
+            else:
+                people = people + name
+    
+        elif len(names) == len(names):
+            if i == 0:
+                people = name + ', '
+            elif i == 1:
+                people = people + name + ' and '
+            elif i == 2:
+                people = people + f"{len(names)-2} others"
+    
+    result = people + sentance
+    return result
+
+
+print(likes(['Macky Stingray', 'Leon McNichol', 'Nigel',  'Galatea', ]))
+#print(likes(['Macky Stingray', 'Leon McNichol', 'Nigel', 'Priscilla S. Asagiri', 'Galatea', 'Quincy Rosenkreutz', 'Brian J. Mason', 'Sylvie', 'Daley Wong', 'Sylia Stingray', 'Largo', 'Nene Romanova', 'Anri']))
+
+
+
+
+def likes(names):
+    d = {
+        0: 'no one likes this',
+        1: '{} likes this',
+        2: '{} and {} like this',
+        3: '{}, {} and {} like this',
+        4: '{}, {} and {others} like this'
+    }
+    length = len(names)
+    return d[min(4,length)].format(*names, others = f"{length-2} others")
+
+
+
+'''
+
+
+'''
+
+def narcissistic(value):
+    result = 0
+    for c in str(value):
+        result = result + int(c)**len(str(value))
+        print(result)
+        #print(result + int(c)**len(c))
+    return result
+    return result == value
+
+narcissistic(153)
+
+
+'''
+
+def solution(n):
+    roman_numerals = {1:'I',5:'V',10:'X',50:'L',100:'C',500:'D',1000:'M'}
+
+    result = ''
+    for digit in str(n):
+        digit = int(f"{digit}{'0'*(len(str(n))-1)}")
+        print(digit)
+        if digit in roman_numerals.keys():
+            result += roman_numerals[digit]
+        
+        else:
+            #find closest number and return 3,2,1 of those
+            #or if 4 or 9 return IV IX etc...
+            #print("NOT IN")
+            pass
+    print(result)
+    return result
+    #case for 4 and 9 to use IV instead of X
+    
+solution(14)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
