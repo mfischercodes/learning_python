@@ -3937,7 +3937,7 @@ narcissistic(153)
 
 
 '''
-
+'''
 def solution(n):
     roman_numerals = {1:'I',5:'V',10:'X',50:'L',100:'C',500:'D',1000:'M'}
 
@@ -3958,26 +3958,6 @@ def solution(n):
     #case for 4 and 9 to use IV instead of X
     
 solution(14)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+'''
 
 
