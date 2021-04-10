@@ -12,12 +12,14 @@ using namespace std;
 
 #pragma region Function_Declaration
 string randomGenerator(int numberOfCharacters);
+string randomLowerGenerator(int numberOfCharacters);
 char randomCapitalCharacter();
 char randomLowerCharacter();
 char randomSpecialCharacter();
 char randomInt();
 
 string decryption(string crackThisPassword, int &t);
+string lowerCaseDecryption(string crackThisPassword, int &t, int length);
 string timeElapsed(long long seconds);
 
 #pragma endregion Function_Declaration
@@ -40,11 +42,14 @@ string timeElapsed(long long seconds);
 
 int main(){
     srand((unsigned int) time(NULL));
-    string password = randomGenerator(4);
+    //string password = randomGenerator(2);
+    int passwordLength = 2;
+    string password = randomLowerGenerator(passwordLength);
     int iterations = 0;
 
     auto start = high_resolution_clock::now();
-    string decrpyt = decryption(password, iterations);
+    //string decrpyt = decryption(password, iterations);
+    string decrpyt = lowerCaseDecryption(password, iterations, passwordLength);
     auto stop = high_resolution_clock::now();
 
     string timeTaken = timeElapsed(duration_cast<seconds>(stop - start).count());
@@ -70,14 +75,12 @@ char randomSpecialCharacter(){
     /** Special characters are split by numbers so we pick a random from one of the 2 groups.*/
     return (rand()%2) ? char(33 + rand()%14) : char(58 + rand()%8); 
 }
-
 string timeElapsed(long long seconds){
     string result;
     result += to_string((int)seconds / 60); // minutes
     result += ':' + to_string((int)seconds % 60); //seconds
     return result;
 }
-
 string randomGenerator(int numberOfCharacters = 8){
     char randomCharacterTypes[4] = {randomLowerCharacter(),randomInt(), randomCapitalCharacter(), randomSpecialCharacter()};
     std::string password;
@@ -88,6 +91,72 @@ string randomGenerator(int numberOfCharacters = 8){
         password += randomCharacterTypes[i%4];
     }
     return password;
+}
+
+string randomLowerGenerator(int numberOfCharacters = 8){
+    char randomCharacterTypes[4] = {randomLowerCharacter(),randomInt(), randomCapitalCharacter(), randomSpecialCharacter()};
+    std::string password;
+
+    for (int i = 0; i < numberOfCharacters; i++){
+        //password += randomCharacterTypes[(rand()%4)%4];
+        //above will work once i get random being actually random.
+        //password += randomCharacterTypes[i%4];
+        password += randomLowerCharacter();
+    }
+    return password;
+}
+
+string lowerCaseDecryption(string crackThisPassword, int &t, int length){
+    int i = 97;
+    int lengthIterator = 0;
+    string cracked;
+    
+    for (int i = 0; i< length; i++){
+        cracked += 'a';
+    }
+    
+    while (true){
+        cout << cracked << ' ';
+        cracked[length-1] = i%123;
+        t++;
+        
+        if (cracked == crackThisPassword){
+            cout << endl;
+            break;
+        }
+        
+        if (i % 123 == 0){
+            i += 96;
+            lengthIterator++;
+            cracked[length-2] = i%123 + lengthIterator%26;
+
+            //if iterator mod 26 then -2 should be -3 for 1 turn
+        }
+        i++;
+
+        // cracked[length-2] = i%123 + lengthIterator%26;
+
+        // check if ran 26 times if so then increment 3rd one once then continue to increment
+        //cracked[length - ?]
+        
+        // iterator % 26 == 0 for step size?
+        // 97 - 126 for last char
+        // aaa
+        // % 123 increment second character once
+        // aba
+        // incrementor for each loop 26 times length?
+        // instead of -2 - 1 we do i / 126
+        
+    }
+
+    // first character is up to mode 122 * length
+    // second is 122 * length
+    // will increment aa,ab,ac etc...
+        return cracked;
+    
+    
+    // store a loop through all
+    // store b loop through all
 }
 
 string decryption(string crackThisPassword, int &t){
