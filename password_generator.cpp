@@ -43,7 +43,7 @@ string timeElapsed(long long seconds);
 int main(){
     srand((unsigned int) time(NULL));
     //string password = randomGenerator(2);
-    int passwordLength = 2;
+    int passwordLength = 1;
     string password = randomLowerGenerator(passwordLength);
     int iterations = 0;
 
@@ -108,13 +108,44 @@ string randomLowerGenerator(int numberOfCharacters = 8){
 
 string lowerCaseDecryption(string crackThisPassword, int &t, int length){
     int i = 97;
+    int guessingLength = 1;
     int lengthIterator = 0;
     string cracked;
-    
+    /*
     for (int i = 0; i< length; i++){
         cracked += 'a';
     }
-    
+    */
+    while (true){
+        //cout << cracked << ' ';
+        // string length depending on x length
+
+        //cracked = i%123; // iterates through alhpabet
+        for (int characterPosition = 0; characterPosition < guessingLength; characterPosition++){
+            cracked += i%123;
+            cout << cracked << ' ';
+        }
+        cout << "iterate once" << endl;
+        //cracked = i%123 + i%123 etc...
+        t++;
+        i++;
+
+        if (i%123 == 0){
+            i += 96;
+            guessingLength++;
+        }
+
+        if (cracked == crackThisPassword){
+            cout << endl;
+            break;
+        }
+        cracked.clear();
+
+    }
+    return cracked;
+
+
+    /*
     while (true){
         cout << cracked << ' ';
         cracked[length-1] = i%123;
@@ -157,6 +188,7 @@ string lowerCaseDecryption(string crackThisPassword, int &t, int length){
     
     // store a loop through all
     // store b loop through all
+    */
 }
 
 string decryption(string crackThisPassword, int &t){
