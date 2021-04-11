@@ -41,6 +41,7 @@
         "xlocale": "cpp",
         "xlocinfo": "cpp",
         "xlocnum": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "functional": "cpp"
     }
 }
