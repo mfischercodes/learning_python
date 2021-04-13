@@ -2,12 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <ctime>
 #include <cstdlib>
 #include <string>
 #include <chrono>
 #include <tuple>
 #include <math.h>
 #include <functional>
+#include <vector>
 
 using namespace std::chrono;
 using namespace std;
@@ -20,6 +22,7 @@ char randomLowerCharacter();
 char randomSpecialCharacter();
 char randomInt();
 
+string optamizedDecryption(string crackThisPassword, int &t, int passLength);
 string decryption(string crackThisPassword, int &t, int passLength);
 string lowerCaseDecryption(string crackThisPassword, int &t, int length);
 string timeElapsed(long long seconds);
@@ -28,6 +31,13 @@ string timeElapsed(long long seconds);
 
 /* TODO:
     OPTIMIZE DECRYPTION
+
+    make a new array with alphabetical letters. Starting with lower case
+    Then upper case then numbers.
+    Make decyption only have special characters on first and last for loops.
+    Try to decrpyt hc password
+    Then 123m password
+
     Start at character 65 instead of special characters. and use math 37 + and some module? to check the special characters later.
 
     *****Iterate for loops according to random Generator number input*****
@@ -42,35 +52,39 @@ string timeElapsed(long long seconds);
     random order of using each function
 */
 
-int main(){
-    srand((unsigned int) time(NULL));
-    string password = "t!Z";
-    int passwordLength = password.length();
-    //int passwordLength = 6;
-    //string password = randomGenerator(passwordLength);
-    int iterations = 0;
 
+int main(){
+    //srand((unsigned int) time(NULL));
+    srand((unsigned int) time(NULL));
+    //string password = "xs)";
+    //int passwordLength = password.length();
+    int passwordLength = 12;
+    string password = randomGenerator(passwordLength);
+    cout << password << endl;
+    int iterations = 0;
+    /*
     auto start = high_resolution_clock::now();
-    string decrpyt = decryption(password, iterations, passwordLength);
+    string decrpyt = optamizedDecryption(password, iterations, passwordLength);
+    //string decrpyt = decryption(password, iterations, passwordLength);
     auto stop = high_resolution_clock::now();
 
     string timeTaken = timeElapsed(duration_cast<seconds>(stop - start).count());
     cout << endl << "Password: " << password << " : " << decrpyt << endl << "Time taken to decrpt " << timeTaken << endl << "Decryption attemps: " << iterations << endl;
+    */
 
     return 0;
 }
 
 char randomInt(){
-    //TODO: Make actually random number
-    std::string test = to_string(std::rand()% 10);
-    char randomNumberChar = test.at(0);
+    std::string numberAsString = to_string(std::rand()% 10);
+    char randomNumberChar = numberAsString.at(0);
     return randomNumberChar;
 }
 char randomLowerCharacter(){
-    return 97 + rand()%26; //97 = a
+    return 'a' + rand()%26;
 }
 char randomCapitalCharacter(){
-    return 65 + rand()%26; //65 = A
+    return 'A' + rand()%26; 
 }
 char randomSpecialCharacter(){
     /** Special characters are split by numbers so we pick a random from one of the 2 groups.*/
@@ -78,18 +92,32 @@ char randomSpecialCharacter(){
 }
 string timeElapsed(long long seconds){
     string result;
-    result += to_string((int)seconds / 60); // minutes
+    result += to_string((int)seconds / 3600); // minutes
+    result += ':' + to_string(((int)seconds %3600) / 60); // minutes
     result += ':' + to_string((int)seconds % 60); //seconds
     return result;
 }
-string randomGenerator(int numberOfCharacters = 8){
+string randomGenerator(int numberOfCharacters){
+    //TODO: Array of function pointers instead of switch statement
     char randomCharacterTypes[4] = {randomLowerCharacter(),randomInt(), randomCapitalCharacter(), randomSpecialCharacter()};
     std::string password;
-
-    for (int i = 0; i < numberOfCharacters; i++){
-        //password += randomCharacterTypes[(rand()%4)%4];
-        //above will work once i get random being actually random.
-        password += randomCharacterTypes[i%4];
+    while (numberOfCharacters > 0){
+        int random = rand()%4;
+        switch(random){
+            case 0:
+                password += randomLowerCharacter();
+                break;
+            case 1:
+                password += randomInt();
+                break;
+            case 2:
+                password += randomCapitalCharacter();
+                break;
+            case 3:
+                password += randomSpecialCharacter();
+                break;
+        }
+        numberOfCharacters--;
     }
     return password;
 }
@@ -228,6 +256,7 @@ string decryption(string crackThisPassword, int &t, int passLength){
                     cout << cracked << ' ';
                     cracked.clear();
                     cracked += i1;
+                    cracked += i2;
                     t++;
                     if (cracked == crackThisPassword){
                         cout << endl;
@@ -368,8 +397,7 @@ string decryption(string crackThisPassword, int &t, int passLength){
                 }
             }
     }
-
-
+    return "Nothing";
     /*
     while (cracked != crackThisPassword){
         cracked;
@@ -386,9 +414,200 @@ string decryption(string crackThisPassword, int &t, int passLength){
     cout << endl << endl;
     return cracked;
     */
-    
 }
+string optamizedDecryption(string crackThisPassword, int &t, int passLength){
+    string cracked;
 
+    std::vector<char> organizedCharacters = {};
+    char lowerCase[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+    char upperCase[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+    char numberCase[10] = {'0','1','2','3','4','5','6','7','8','9'};
+    for (int i = 0; i < 26; i++){
+        organizedCharacters.push_back(lowerCase[i]);
+    }    
+    for (int i = 0; i < 26; i++){
+        organizedCharacters.push_back(upperCase[i]);
+    }   
+    for (int i = 0; i < 10; i++){
+        organizedCharacters.push_back(numberCase[i]);
+    }   
+
+    std::vector<char> organizedCharactersSpecial = organizedCharacters;
+    char specialCase[12] = {'!','@','#','$','%','^','&','*','(',')','?','~'};
+    for (int i = 0; i < 12; i++){
+        organizedCharactersSpecial.push_back(specialCase[i]);
+    } 
+
+    int sizeOfArray = sizeof(organizedCharacters) / sizeof(organizedCharacters[0]); // 56 / 1
+    
+    switch (passLength){
+        case 1:
+            for (int i = 0; i < 62; i++){
+                cracked.clear();
+                cracked += organizedCharacters[i];
+                cout << cracked << ' ';
+                t++;
+
+                if (cracked == crackThisPassword){
+                    cout << endl;
+                    return cracked;
+                }
+            }
+        case 2:
+            for (int i1 = 0; i1 < 74; i1++){
+                for (int i2 = 0; i2 < 74; i2++){
+                    cracked.clear();
+                    cracked += organizedCharactersSpecial[i1]; cracked += organizedCharactersSpecial[i2];
+                    cout << cracked << ' ';
+                    t++;
+
+                    if (cracked == crackThisPassword){
+                        cout << endl;
+                        return cracked;
+                    }
+                }
+            }
+        case 3:
+            for (int i1 = 0; i1 < 74; i1++){
+                for (int i2 = 0; i2 < 62; i2++){
+                    for (int i3 = 0; i3 < 74; i3++){
+                        cracked.clear();
+                        cracked += organizedCharactersSpecial[i1]; cracked += organizedCharactersSpecial[i2];
+                        cracked += organizedCharactersSpecial[i3];
+                        cout << cracked << ' ';
+                        t++;
+
+                        if (cracked == crackThisPassword){
+                            cout << endl;
+                            return cracked;
+                        }
+                    }
+                }
+            }
+        case 4:
+            for (int i1 = 0; i1 < 74; i1++){
+                for (int i2 = 0; i2 < 62; i2++){
+                    for (int i3 = 0; i3 < 62; i3++){
+                        for (int i4 = 0; i4 < 74; i4++){
+                            cracked.clear();
+                            cracked += organizedCharactersSpecial[i1]; cracked += organizedCharactersSpecial[i2];
+                            cracked += organizedCharactersSpecial[i3]; cracked += organizedCharactersSpecial[i4];
+                            cout << cracked << ' ';
+                            t++;
+
+                            if (cracked == crackThisPassword){
+                                cout << endl;
+                                return cracked;
+                            }
+                        }
+                    }
+                }
+            }
+        case 5:
+            for (int i1 = 0; i1 < 74; i1++){
+                for (int i2 = 0; i2 < 62; i2++){
+                    for (int i3 = 0; i3 < 62; i3++){
+                        for (int i4 = 0; i4 < 62; i4++){
+                            for (int i5 = 0; i5 < 74; i5++){
+                                cracked.clear();
+                                cracked += organizedCharactersSpecial[i1]; cracked += organizedCharactersSpecial[i2];
+                                cracked += organizedCharactersSpecial[i3]; cracked += organizedCharactersSpecial[i4];
+                                cracked += organizedCharactersSpecial[i5];
+                                cout << cracked << ' ';
+                                t++;
+
+                                if (cracked == crackThisPassword){
+                                    cout << endl;
+                                    return cracked;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        case 6:
+            for (int i1 = 0; i1 < 74; i1++){
+                for (int i2 = 0; i2 < 62; i2++){
+                    for (int i3 = 0; i3 < 62; i3++){
+                        for (int i4 = 0; i4 < 62; i4++){
+                            for (int i5 = 0; i5 < 62; i5++){
+                                for (int i6 = 0; i6 < 74; i6++){
+                                    cracked.clear();
+                                    cracked += organizedCharactersSpecial[i1]; cracked += organizedCharactersSpecial[i2];
+                                    cracked += organizedCharactersSpecial[i3]; cracked += organizedCharactersSpecial[i4];
+                                    cracked += organizedCharactersSpecial[i5]; cracked += organizedCharactersSpecial[i6];
+                                    cout << cracked << ' ';
+                                    t++;
+
+                                    if (cracked == crackThisPassword){
+                                        cout << endl;
+                                        return cracked;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        case 7:
+            for (int i1 = 0; i1 < 74; i1++){
+                for (int i2 = 0; i2 < 62; i2++){
+                    for (int i3 = 0; i3 < 62; i3++){
+                        for (int i4 = 0; i4 < 62; i4++){
+                            for (int i5 = 0; i5 < 62; i5++){
+                                for (int i6 = 0; i6 < 62; i6++){
+                                    for (int i7 = 0; i7 < 74; i7++){
+                                        cracked.clear();
+                                        cracked += organizedCharactersSpecial[i1]; cracked += organizedCharactersSpecial[i2];
+                                        cracked += organizedCharactersSpecial[i3]; cracked += organizedCharactersSpecial[i4];
+                                        cracked += organizedCharactersSpecial[i5]; cracked += organizedCharactersSpecial[i6];
+                                        cracked += organizedCharactersSpecial[i7];
+                                        cout << cracked << ' ';
+                                        t++;
+
+                                        if (cracked == crackThisPassword){
+                                            cout << endl;
+                                            return cracked;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        case 8:
+            for (int i1 = 0; i1 < 74; i1++){
+                for (int i2 = 0; i2 < 62; i2++){
+                    for (int i3 = 0; i3 < 62; i3++){
+                        for (int i4 = 0; i4 < 62; i4++){
+                            for (int i5 = 0; i5 < 62; i5++){
+                                for (int i6 = 0; i6 < 62; i6++){
+                                    for (int i7 = 0; i7 < 62; i7++){
+                                        for (int i8 = 0; i8 < 74; i8++){
+                                            cracked.clear();
+                                            cracked += organizedCharactersSpecial[i1]; cracked += organizedCharactersSpecial[i2];
+                                            cracked += organizedCharactersSpecial[i3]; cracked += organizedCharactersSpecial[i4];
+                                            cracked += organizedCharactersSpecial[i5]; cracked += organizedCharactersSpecial[i6];
+                                            cracked += organizedCharactersSpecial[i7]; cracked += organizedCharactersSpecial[i8];
+                                            cout << cracked << ' ';
+                                            t++;
+
+                                            if (cracked == crackThisPassword){
+                                                cout << endl;
+                                                return cracked;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+    }
+    return "Nothing";
+}
 
 
 
