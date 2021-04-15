@@ -26,59 +26,47 @@ string optamizedDecryption(string crackThisPassword, int &t, int passLength);
 string decryption(string crackThisPassword, int &t, int passLength);
 string lowerCaseDecryption(string crackThisPassword, int &t, int length);
 string timeElapsed(long long seconds);
-
 #pragma endregion Function_Declaration
 
 /* TODO:
     OPTIMIZE DECRYPTION
 
-    make a new array with alphabetical letters. Starting with lower case
-    Then upper case then numbers.
-    Make decyption only have special characters on first and last for loops.
-    Try to decrpyt hc password
-    Then 123m password
-
-    Start at character 65 instead of special characters. and use math 37 + and some module? to check the special characters later.
-
-    *****Iterate for loops according to random Generator number input*****
-
-    How to pass a function as a paramtere to another function so I can clean up the
-    START STOP time into a function passing in the function as a parameter.
-
-    GET RANDOM TO ACTUALLY BE RANDOM
-    DEFAULT VALUE FOR FUNCTIONS? NOT WORKING
     true and false for if each function allowed to be called in the random.
+    assign to randomCharacter with push_back
+
+    pass an array of booleans to check if they want random lower, random int, random capital, random special
+
+    while loop to check if function has all the variables that it would like
+
+
     each function must be called atleast one time.
     random order of using each function
 */
 
 
 int main(){
-    //srand((unsigned int) time(NULL));
     srand((unsigned int) time(NULL));
     //string password = "xs)";
     //int passwordLength = password.length();
-    int passwordLength = 12;
+    int passwordLength = 4;
     string password = randomGenerator(passwordLength);
     cout << password << endl;
     int iterations = 0;
-    /*
+    
     auto start = high_resolution_clock::now();
-    string decrpyt = optamizedDecryption(password, iterations, passwordLength);
+    //string decrpyt = optamizedDecryption(password, iterations, passwordLength);
     //string decrpyt = decryption(password, iterations, passwordLength);
     auto stop = high_resolution_clock::now();
 
     string timeTaken = timeElapsed(duration_cast<seconds>(stop - start).count());
-    cout << endl << "Password: " << password << " : " << decrpyt << endl << "Time taken to decrpt " << timeTaken << endl << "Decryption attemps: " << iterations << endl;
-    */
+    //cout << endl << "Password: " << password << " : " << decrpyt << endl << "Time taken to decrpt " << timeTaken << endl << "Decryption attemps: " << iterations << endl;
+    
 
     return 0;
 }
 
 char randomInt(){
-    std::string numberAsString = to_string(std::rand()% 10);
-    char randomNumberChar = numberAsString.at(0);
-    return randomNumberChar;
+    return '0' + rand()%10;
 }
 char randomLowerCharacter(){
     return 'a' + rand()%26;
@@ -88,6 +76,8 @@ char randomCapitalCharacter(){
 }
 char randomSpecialCharacter(){
     /** Special characters are split by numbers so we pick a random from one of the 2 groups.*/
+    char specialCase[] = {'!','"','+','@','#','$','%','^','&','*','(',')','?','~'};
+    return specialCase[rand()%(sizeof(specialCase)/sizeof(specialCase[0]))];
     return (rand()%2) ? char(33 + rand()%14) : char(58 + rand()%8); 
 }
 string timeElapsed(long long seconds){
@@ -98,11 +88,16 @@ string timeElapsed(long long seconds){
     return result;
 }
 string randomGenerator(int numberOfCharacters){
-    //TODO: Array of function pointers instead of switch statement
-    char randomCharacterTypes[4] = {randomLowerCharacter(),randomInt(), randomCapitalCharacter(), randomSpecialCharacter()};
+    char (*randomCharacter[])() = {randomLowerCharacter, randomInt, randomCapitalCharacter, randomSpecialCharacter};
+    
     std::string password;
-    while (numberOfCharacters > 0){
+    bool validator[4] = {false,false,false,false};
+    std::string t;
+    
+    while (numberOfCharacters-- > 0){
         int random = rand()%4;
+        password += randomCharacter[random]();
+        /* switch statement
         switch(random){
             case 0:
                 password += randomLowerCharacter();
@@ -117,18 +112,23 @@ string randomGenerator(int numberOfCharacters){
                 password += randomSpecialCharacter();
                 break;
         }
-        numberOfCharacters--;
+        */
+    }
+
+    for (int i = 0; i < 26; i++){
+        t = 'a' + i;
+        if (password.find(t) != std::string::npos){
+            validator[0] = true;
+        }
+    }
+    if (validator[0] == true){
+        cout << "FOUND IT" << endl;
     }
     return password;
 }
 string randomLowerGenerator(int numberOfCharacters = 8){
-    char randomCharacterTypes[4] = {randomLowerCharacter(),randomInt(), randomCapitalCharacter(), randomSpecialCharacter()};
     std::string password;
-
     for (int i = 0; i < numberOfCharacters; i++){
-        //password += randomCharacterTypes[(rand()%4)%4];
-        //above will work once i get random being actually random.
-        //password += randomCharacterTypes[i%4];
         password += randomLowerCharacter();
     }
     return password;
@@ -453,6 +453,7 @@ string optamizedDecryption(string crackThisPassword, int &t, int passLength){
                     return cracked;
                 }
             }
+            break;
         case 2:
             for (int i1 = 0; i1 < 74; i1++){
                 for (int i2 = 0; i2 < 74; i2++){
@@ -467,6 +468,7 @@ string optamizedDecryption(string crackThisPassword, int &t, int passLength){
                     }
                 }
             }
+            break;
         case 3:
             for (int i1 = 0; i1 < 74; i1++){
                 for (int i2 = 0; i2 < 62; i2++){
@@ -484,6 +486,7 @@ string optamizedDecryption(string crackThisPassword, int &t, int passLength){
                     }
                 }
             }
+            break;
         case 4:
             for (int i1 = 0; i1 < 74; i1++){
                 for (int i2 = 0; i2 < 62; i2++){
@@ -503,6 +506,7 @@ string optamizedDecryption(string crackThisPassword, int &t, int passLength){
                     }
                 }
             }
+            break;
         case 5:
             for (int i1 = 0; i1 < 74; i1++){
                 for (int i2 = 0; i2 < 62; i2++){
@@ -525,6 +529,7 @@ string optamizedDecryption(string crackThisPassword, int &t, int passLength){
                     }
                 }
             }
+            break;
         case 6:
             for (int i1 = 0; i1 < 74; i1++){
                 for (int i2 = 0; i2 < 62; i2++){
@@ -549,6 +554,7 @@ string optamizedDecryption(string crackThisPassword, int &t, int passLength){
                     }
                 }
             }
+            break;
         case 7:
             for (int i1 = 0; i1 < 74; i1++){
                 for (int i2 = 0; i2 < 62; i2++){
@@ -576,6 +582,7 @@ string optamizedDecryption(string crackThisPassword, int &t, int passLength){
                     }
                 }
             }
+            break;
         case 8:
             for (int i1 = 0; i1 < 74; i1++){
                 for (int i2 = 0; i2 < 62; i2++){
@@ -605,6 +612,7 @@ string optamizedDecryption(string crackThisPassword, int &t, int passLength){
                     }
                 }
             }
+            break;
     }
     return "Nothing";
 }
