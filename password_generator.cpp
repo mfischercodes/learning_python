@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -21,6 +22,7 @@ char randomCapitalCharacter();
 char randomLowerCharacter();
 char randomSpecialCharacter();
 char randomInt();
+bool validatePassword(string password, bool lower, bool upper, bool number, bool special);
 
 string optamizedDecryption(string crackThisPassword, int &t, int passLength);
 string decryption(string crackThisPassword, int &t, int passLength);
@@ -28,29 +30,13 @@ string lowerCaseDecryption(string crackThisPassword, int &t, int length);
 string timeElapsed(long long seconds);
 #pragma endregion Function_Declaration
 
-/* TODO:
-    OPTIMIZE DECRYPTION
-
-    true and false for if each function allowed to be called in the random.
-    assign to randomCharacter with push_back
-
-    pass an array of booleans to check if they want random lower, random int, random capital, random special
-
-    while loop to check if function has all the variables that it would like
-
-
-    each function must be called atleast one time.
-    random order of using each function
-*/
-
-
 int main(){
     srand((unsigned int) time(NULL));
     //string password = "xs)";
     //int passwordLength = password.length();
     int passwordLength = 4;
     string password = randomGenerator(passwordLength);
-    cout << password << endl;
+    cout << "Password: " << password << endl;
     int iterations = 0;
     
     auto start = high_resolution_clock::now();
@@ -89,42 +75,96 @@ string timeElapsed(long long seconds){
 }
 string randomGenerator(int numberOfCharacters){
     char (*randomCharacter[])() = {randomLowerCharacter, randomInt, randomCapitalCharacter, randomSpecialCharacter};
-    
+    int baseNumbers = numberOfCharacters;
     std::string password;
-    bool validator[4] = {false,false,false,false};
-    std::string t;
-    
-    while (numberOfCharacters-- > 0){
-        int random = rand()%4;
-        password += randomCharacter[random]();
-        /* switch statement
-        switch(random){
-            case 0:
-                password += randomLowerCharacter();
-                break;
-            case 1:
-                password += randomInt();
-                break;
-            case 2:
-                password += randomCapitalCharacter();
-                break;
-            case 3:
-                password += randomSpecialCharacter();
-                break;
-        }
-        */
-    }
 
-    for (int i = 0; i < 26; i++){
-        t = 'a' + i;
-        if (password.find(t) != std::string::npos){
-            validator[0] = true;
+    while (true){
+        while (numberOfCharacters-- > 0){
+            password += randomCharacter[rand()%4]();
         }
-    }
-    if (validator[0] == true){
-        cout << "FOUND IT" << endl;
+        if (validatePassword(password, true, true, true, true) == false){
+            //cout << password << endl;
+            password.clear();
+            numberOfCharacters = baseNumbers;
+            continue;
+        }
+        break;
     }
     return password;
+    /* switch statement
+            switch(random){
+                case 0:
+                    password += randomLowerCharacter();
+                    break;
+                case 1:
+                    password += randomInt();
+                    break;
+                case 2:
+                    password += randomCapitalCharacter();
+                    break;
+                case 3:
+                    password += randomSpecialCharacter();
+                    break;
+            }
+            */
+        
+}
+bool validatePassword(string password, bool lower, bool upper, bool number, bool special){
+    std::string lowerLetter, upperLetter, numberLetter, specialLetter;
+    bool validator[4] = {false,false,false,false};
+    char specialCase[14] = {'!','"','+','@','#','$','%','^','&','*','(',')','?','~'};
+
+    if (password.length() < 4){
+        lower = false; upper = false; number= false; special = false;
+        cout << endl << "ERROR: YOU ARE TRYING TO VALIDATE 4 CHARACTER TYPES WITH A PASSWORD LENGTH OF LESS THAN 4!"
+        << "\nIn validate Password turn one boolean to false or increase password length." << endl;
+    }
+
+    if (lower == true || upper == true){
+        for (int i = 0; i < 26; i++){
+            lowerLetter = 'a' + i;
+            upperLetter = 'A' + i;
+            if (lower == true){
+                if (password.find(lowerLetter) != std::string::npos){
+                validator[0] = true;
+                }
+            }
+            if (upper == true){
+                if (password.find(upperLetter) != std::string::npos){
+                validator[1] = true;
+                }
+            }
+            
+        }
+    }
+
+    if (number == true){
+        for (int i = 0; i < 10; i++){
+            numberLetter = '0'+ i;
+            if (password.find(numberLetter) != std::string::npos){
+                validator[2] = true;
+            }
+        }
+    }
+    else{
+        validator[2] = number;
+    }
+
+    if (special == true){
+        for (int i = 0; i < sizeof(specialCase)/sizeof(specialCase[0]); i++){
+            specialLetter = specialCase[i];
+            if (password.find(specialLetter) != std::string::npos){
+                validator[3] = true;
+            }
+        }
+    }
+    else{
+        validator[3] = special;
+    }
+
+    return ((validator[0] == lower ) && (validator[1] == upper) && (validator[2] == number) && (validator[3] == special)) ? true : false;
+    
+    
 }
 string randomLowerGenerator(int numberOfCharacters = 8){
     std::string password;
