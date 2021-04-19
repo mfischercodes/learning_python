@@ -34,7 +34,7 @@ int main(){
     srand((unsigned int) time(NULL));
     //string password = "xs)";
     //int passwordLength = password.length();
-    int passwordLength = 4;
+    int passwordLength = 20;
     string password = randomGenerator(passwordLength);
     cout << "Password: " << password << endl;
     int iterations = 0;
